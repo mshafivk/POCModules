@@ -12,6 +12,9 @@ function outer() { //outer function
 //calls outer function
 outer();
 // 2  => function invokation inside method invokation
+/*
+ *  If there are dots in your function call, your function context will be the right-most element of your dots chain.
+ */
 var value = 100;
 let app = {
         value: 0, //assign props to obj
@@ -26,6 +29,23 @@ let app = {
     }
     //method invokation
 app.outer();
+
+//2.2
+var value = 122;
+let app = {
+        value: 0, //assign props to obj
+        outer: { //outer function
+            value: 128,
+            inner: function() {
+                console.log("Called function invokation - outer object :" + this.value); //logs 128
+            }
+        }
+    }
+    //method invokation
+app.outer.inner();
+
+
+
 //3=> INDIRECT INVOCATION PATTERN
 //call apply bind
 function square(x) {
@@ -68,7 +88,7 @@ var Calc = function() {
     var name, sign;
     return console.dir(this);
 };
-firstCalc = new Calc(); //You just invoked a function, yay!
+firstCalc = new Calc();
 firstCalc.name = "plus";
 firstCalc.sign = "+";
 secondCalc = new Calc();
